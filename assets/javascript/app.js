@@ -1,44 +1,82 @@
-// moment for current date
-const currentDate = $('#currentDay');
-const now = moment().format("dddd, Do MMMM");
-currentDate.text(now);
+function createTimeBlock(hour){
+    // create row element
+    const row = $('<div>');
+    row.attr('class', 'row time-block');
+    
+    // 3 columns (hour, tasks, save)
+    // create and display hourly element 
+    const hourCol = $('<div>');
+    hourCol.attr('class', 'col-1 hour d-flex align-items-center justify-content-end');
+    hourCol.text(moment(hour, 'H').format('h A'));
+    
+    // when i click on time block
+    // you can type a small description of your task
+    const taskCol = $('<textarea>');
+    taskCol.attr('class', 'col-10');
+    
+    // time blocks need to be color coded depending on...    
+    const currentHour = Number(moment().format('H'));
+    // if past
+    const isPast = hour < currentHour;
+    if (isPast){
+        taskCol.addClass('past');
+    };
+    // if present
+    const isPresent = hour === currentHour;
+    if (isPresent){
+        taskCol.addClass('present');
+    };
+    // if future
+    const isFuture = hour > currentHour;
+    if (isFuture){
+        taskCol.addClass('future');
+    };
+    
+    const saveBtnCol = $('<button>');
+    saveBtnCol.attr('class', 'col-1 saveBtn');
+    const saveIcon = $('<i>');
+    saveIcon.attr('class', 'fas fa-save');
+    saveBtnCol.append(saveIcon);
+    
+    // when i click the save button
+    // saves that specific row to local storage so if refreshed, it remains
+    saveBtnCol.on("click", function(){
+        const userInput = taskCol.val();
+        localStorage.setItem(hour, userInput)
+    });
+    
+    // when page loads gets values from local storage and places them in the correct time slots
+    taskCol.val(localStorage.getItem(hour))
 
-const currentTime = moment().format('HH')
-
-// time blocks need to be color coded, blue displaying current time, gray for past, green for future
-// when i click on time block
-// you can type a small description of your task
-const timeBlock = $('.task');
-
+    // Append row with columns
+    row.append(hourCol, taskCol, saveBtnCol);
+    return row;
+}
 
 $(function(){
-    // if statement, if currenttime is less than then set to future, if == set top present
-    // for loop
     
-})
-
-// when i click the save button
-// saves that specific row to local storage so if refreshed, it remains
-
-// event listener - lg correct time in row
-// when page loads gets values from local storage and place them in the correct places
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // moment for current date
+    const currentDate = $('#current-day');
+    const dateToday = moment().format("dddd, Do MMMM");
+    currentDate.text(dateToday);
+    
+    // set current time
+    setInterval(function(){
+            const currentTime = moment().format('hh:mm:ss A');
+            $('#current-time').text(currentTime);
+    }, 1000);
+    
+    const timeBlockContainer = $('.container');
+    
+    // for standard business hours 9am-5pm
+    for (let hour = 9; hour < 18; hour++) {
+        
+        const timeBlock = createTimeBlock(hour);
+        
+        timeBlockContainer.append(timeBlock)  ; 
+    }    
+    
+});
 
 
 
@@ -47,10 +85,24 @@ $(function(){
 
 
 
-// THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-// WHEN I click into a timeblock
-// THEN I can enter an event
-// WHEN I click the save button for that timeblock
-// THEN the text for that event is saved in local storage
-// WHEN I refresh the page
-// THEN the saved events persist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
