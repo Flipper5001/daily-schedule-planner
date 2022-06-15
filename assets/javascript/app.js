@@ -32,6 +32,7 @@ function createTimeBlock(hour){
         taskCol.addClass('future');
     };
     
+    // Save button
     const saveBtnCol = $('<button>');
     saveBtnCol.attr('class', 'col-1 saveBtn');
     const saveIcon = $('<i>');
