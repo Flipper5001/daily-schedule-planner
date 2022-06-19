@@ -11,7 +11,7 @@ Create a daily planner used for recording tasks and events between standard oper
 ![alt text](./assets/images/screenshot.PNG)
 
 ## Usage
-This faily planner is mainly meant to be utilised for sample purposes only. This is a test for utilising various API's and JS libraries to create a daily planner where the user can store a task in each timeslot for standard operational business hours. 
+This daily planner is mainly meant to be utilised for sample purposes only. This is a test for utilising various API's and JS libraries to create a daily planner where the user can store a task in each timeslot for standard operational business hours. 
 
 Utilised: JQuery, Bootstrap, Moment, Font Awesome.
 
